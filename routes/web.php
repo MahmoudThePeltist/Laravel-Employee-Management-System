@@ -11,6 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'DashboardController@dashboard');
+
+// Route::get('/employees', 'EmployeesController@index');
+// Route::get('/employees/{employee}', 'EmployeesController@show');
+// Route::get('/employees/create', 'EmployeesController@create');
+// Route::get('/employees/{employee}/edit', 'EmployeesController@edit');
+// Route::post('/employees', 'EmployeesController@store');
+// Route::patch('/employees/{employee}', 'EmployeesController@update');
+// Route::delete('/employees/{employee}', 'EmployeesController@destroy');
+
+Route::resource('employees','EmployeesController');
+
+Route::get('/login', 'PagesController@login');
+Route::post('/login', 'PagesController@post');
