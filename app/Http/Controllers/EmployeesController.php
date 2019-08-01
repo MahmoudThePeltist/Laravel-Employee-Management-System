@@ -10,20 +10,15 @@ class EmployeesController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @param  \App\Employee  $employee
-     * @return \Illuminate\Http\Response
      */
     public function index(Employee $employee)
     {
-        //
+        $employeeData = $employee->all();
+        return $employeeData;
     }
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @param  \App\Employee  $employee
-     * @return \Illuminate\Http\Response
      */
     public function create(Employee $employee)
     {
@@ -32,69 +27,62 @@ class EmployeesController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Employee  $employee
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Employee $employee)
     {
         $employee = new Employee();
-        $employee->fName = request('fName');
-        $employee->lName = request('lName');
-        $employee->position = request('position');
-        $employee->level = request('level');
+        $employee->fName = $request->fName;
+        $employee->lName = $request->lName;
+        $employee->position = $request->position;
+        $employee->level = $request->level;
         $employee->save();
 
         return redirect('/');
     }
-    
+
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Employee  $employee
-     * @param  \DummyFullModelClass  $DummyModelVariable
-     * @return \Illuminate\Http\Response
      */
-    public function show(Employee $employee, DummyModelClass $DummyModelVariable)
+    public function show(Employee $employee)
     {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \App\Employee  $employee
-     * @param  \DummyFullModelClass  $DummyModelVariable
-     * @return \Illuminate\Http\Response
      */
-    public function edit(Employee $employee, DummyModelClass $DummyModelVariable)
+    public function edit($id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        
+        return view('edit-employee',[
+            'employee' => $employee
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Employee  $employee
-     * @param  \DummyFullModelClass  $DummyModelVariable
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee, DummyModelClass $DummyModelVariable)
+    public function update(Request $request, $id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+
+        $employee->fName = $request->fName;
+        $employee->lName = $request->lName;
+        $employee->position = $request->position;
+        $employee->level = $request->level;
+
+        $employee->save();
+
+        return redirect('/');
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Employee  $employee
-     * @param  \DummyFullModelClass  $DummyModelVariable
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(Employee $employee, DummyModelClass $DummyModelVariable)
+    public function destroy($id)
     {
-        //
+        Employee::findOrFail($id)->delete();
+        return redirect('/');
     }
 }
