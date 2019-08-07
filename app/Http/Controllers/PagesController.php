@@ -13,6 +13,11 @@ class PagesController extends Controller
     }
     
     public function post(){
+        request()->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
         $email = request('email');
         $password = request('password');
         

@@ -9,10 +9,8 @@ class DashboardController extends Controller
 {
     public function dashboard(){
 
-        $employeeData = Employee::all();
+        $employees = Employee::all();
 
-        return view("Dashboard",[
-            'employees' => $employeeData
-        ]);
+        return view("Dashboard", compact('employees'));
     }
 }

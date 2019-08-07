@@ -13,8 +13,8 @@ class EmployeesController extends Controller
      */
     public function index(Employee $employee)
     {
-        $employeeData = $employee->all();
-        return $employeeData;
+        $employees = $employee->all();
+        return view('employees.index', compact('employees'));
     }
 
     /**
@@ -22,20 +22,22 @@ class EmployeesController extends Controller
      */
     public function create(Employee $employee)
     {
-        //
+        dd('Create a fun little creation menu...');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Employee $employee)
+    public function store(Employee $employee)
     {
-        $employee = new Employee();
-        $employee->fName = $request->fName;
-        $employee->lName = $request->lName;
-        $employee->position = $request->position;
-        $employee->level = $request->level;
-        $employee->save();
+        $validatedData = request()->validate([
+            'fName' => ['required','min:3','max:12','string'],
+            'lName' => ['required','min:3','max:12','string'],
+            'position' => ['required','min:1','max:24','string'],
+            'level' => ['required','min:1','max:1000','integer']
+            ]);
+
+        $employee->create($validatedData);
 
         return redirect('/');
     }
@@ -45,34 +47,31 @@ class EmployeesController extends Controller
      */
     public function show(Employee $employee)
     {
-        //
+        return view('employees.show', compact('employee'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Employee $employee)
     {
-        $employee = Employee::findOrFail($id);
         
-        return view('edit-employee',[
-            'employee' => $employee
-        ]);
+        return view('employees.edit', compact('employee'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Employee $employee)
     {
-        $employee = Employee::findOrFail($id);
-
-        $employee->fName = $request->fName;
-        $employee->lName = $request->lName;
-        $employee->position = $request->position;
-        $employee->level = $request->level;
-
-        $employee->save();
+        $validatedData = request()->validate([
+            'fName' => ['required','min:3','max:12','string'],
+            'lName' => ['required','min:3','max:12','string'],
+            'position' => ['required','min:1','max:24','string'],
+            'level' => ['required','min:1','max:1000','integer']
+            ]);
+            
+        $employee->update($validatedData);
 
         return redirect('/');
     }
@@ -83,6 +82,7 @@ class EmployeesController extends Controller
     public function destroy($id)
     {
         Employee::findOrFail($id)->delete();
+
         return redirect('/');
     }
 }
