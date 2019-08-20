@@ -26,5 +26,3 @@ Route::post('/projects/{project}/tasks','TasksController@store')->middleware('au
 // Route::post('/login', 'PagesController@post');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
