@@ -1,7 +1,7 @@
 
-@extends('sidebar-navbar')
+@extends('components.layout')
 
-@section('sidebar-navbar-content')
+@section('layout-content')
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -49,7 +49,7 @@
   </div>
 
   <div class="table-responsive">
-    <table class="table table-striped table-sm text-center">
+    <table class="table table-striped table-sm text-center table-hover">
       <thead>
         <tr>
           <th>id</th>
@@ -63,24 +63,29 @@
       <tbody>
         @foreach($employees as $employee)
             <tr>
-                <td>{{ $employee['id'] }}</td>
-                <td>{{ $employee['fName'] }}</td>
-                <td>{{ $employee['lName'] }}</td>
-                <td>{{ $employee['position'] }}</td>
-                <td>{{ $employee['level'] }}</td>
+                <a href="employees/{{$employee['id']}}">
+                  <td style="cursor: pointer" onclick="window.location='employees/{{$employee['id']}}'">
+                    {{ $employee['id'] }}
+                  </td>
+                  <td style="cursor: pointer" onclick="window.location='employees/{{$employee['id']}}'">
+                    {{ $employee['fName'] }}
+                  </td>
+                  <td style="cursor: pointer" onclick="window.location='employees/{{$employee['id']}}'">
+                    {{ $employee['lName'] }}
+                  </td>
+                  <td style="cursor: pointer" onclick="window.location='employees/{{$employee['id']}}'">
+                    {{ $employee['position'] }}
+                  </td>
+                  <td style="cursor: pointer" onclick="window.location='employees/{{$employee['id']}}'">
+                    {{ $employee['level'] }}
+                  </td>
+                </a>
                 <td class="mx-auto">
                   <div class="d-flex justify-content-center px-auto">
                     <div class="mx-2">
                       <a href="employees/{{$employee['id']}}/edit">
                         <button type="submit" class="btn btn-outline-dark">
                           <i class="fas fa-user-edit"></i>
-                        </button>
-                      </a>
-                    </div>
-                    <div class="mx-2">
-                      <a href="employees/{{$employee['id']}}">
-                        <button type="submit" class="btn btn-outline-dark">
-                          <i class="fas fa-user"></i>
                         </button>
                       </a>
                     </div>

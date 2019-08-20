@@ -1,7 +1,7 @@
 
-@extends('sidebar-navbar')
+@extends('components.layout')
 
-@section('sidebar-navbar-content')
+@section('layout-content')
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -43,7 +43,7 @@
   </div>
 
   <div class="table-responsive">
-    <table class="table table-striped table-sm text-center">
+    <table class="table table-striped table-sm text-center table-hover">
       <thead>
         <tr>
           <th>id</th>
@@ -55,10 +55,35 @@
       <tbody>
         @foreach($projects as $project)
             <tr>
-                <td>{{ $project['id'] }}</td>
-                <td>{{ $project['name'] }}</td>
-                <td>{{ $project['description'] }}</td>
-                <td>[btn] [btn] [btn]</td>
+                <td style="cursor: pointer" onclick="window.location='projects/{{$project['id']}}'">
+                  {{ $project['id'] }}
+                </td>
+                <td style="cursor: pointer" onclick="window.location='projects/{{$project['id']}}'">
+                  {{ $project['name'] }}
+                </td>
+                <td style="cursor: pointer" onclick="window.location='projects/{{$project['id']}}'">
+                  {{ $project['description'] }}
+                </td>
+                <td class="mx-auto">
+                  <div class="d-flex justify-content-center px-auto">
+                    <div class="mx-2">
+                      <a href="projects/{{$project['id']}}/edit">
+                        <button type="submit" class="btn btn-outline-dark">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                      </a>
+                    </div>
+                    <div class="mx-2">
+                      <form class="form-inline" method="POST" action="projects/{{$project['id']}}">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-outline-dark">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </td>
             </tr>
         @endforeach
       </tbody>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\Employee;
+
 use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
@@ -34,9 +36,16 @@ class ProjectsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Project $project)
     {
-        //
+        $validatedData = request()->validate([
+            'name' => ['required','string'],
+            'description' => ['required','string']
+        ]);
+
+        $project->create($validatedData);
+
+        return redirect('/projects');
     }
 
     /**
@@ -47,7 +56,12 @@ class ProjectsController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        $employees = Employee::get();
+        
+        return view('projects.show',[
+            'project' => $project,
+            'employees' => $employees
+        ]);
     }
 
     /**
@@ -58,7 +72,7 @@ class ProjectsController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('projects.edit',compact('project'));
     }
 
     /**
@@ -70,7 +84,14 @@ class ProjectsController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $validatedData = request()->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $project->update($validatedData);
+
+        return redirect('/projects');
     }
 
     /**
@@ -81,6 +102,26 @@ class ProjectsController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+
+        return redirect('/projects');
+    }
+
+    public function deassign($id, $employee_id){
+        $project = Project::find($id);
+        $employee = Employee::find($employee_id);
+
+        $project->employees()->detach($employee);
+        
+        return back();
+    }
+    public function assign($id, $employee_id){
+
+        $project = Project::find($id);
+        $employee = Employee::find($employee_id);
+
+        $project->employees()->attach($employee);
+
+        return back();
     }
 }

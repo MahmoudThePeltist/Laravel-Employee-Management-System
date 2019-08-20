@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Task;
+use App\Project;
 use Illuminate\Http\Request;
 
 class TasksController extends Controller
@@ -33,9 +34,13 @@ class TasksController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Project $project)
     {
-        //
+        $attributes = request()->validate(['description' => 'required']);
+        
+        $project->addTask($attributes);        
+
+        return back();
     }
 
     /**
@@ -69,7 +74,11 @@ class TasksController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $method = request()->has(['completed']) ? 'complete' : 'incomplete';
+
+        $task->$method();
+   
+        return back();
     }
 
     /**
@@ -80,6 +89,8 @@ class TasksController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+
+        return back();
     }
 }

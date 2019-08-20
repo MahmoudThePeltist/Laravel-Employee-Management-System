@@ -39,7 +39,7 @@ class EmployeesController extends Controller
 
         $employee->create($validatedData);
 
-        return redirect('/');
+        return redirect('/employees');
     }
 
     /**
@@ -73,16 +73,16 @@ class EmployeesController extends Controller
             
         $employee->update($validatedData);
 
-        return redirect('/');
+        return redirect('/employees');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Employee $employee)
     {
-        Employee::findOrFail($id)->delete();
+        $project->delete();
 
-        return redirect('/');
+        return redirect('/employees');
     }
 }

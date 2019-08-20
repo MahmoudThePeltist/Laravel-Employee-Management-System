@@ -1,42 +1,40 @@
 
-@extends('layout')
+@extends('components.layout')
 
-<div class="container">
-  <div class="row h-100">
-    <div class="card mx-auto my-auto col-md-6"> 
-        <div class="card-footer">
-          <div class="h3">Editing Employee</div>
-        </div>
-      <form method="post" action="/employees/{{ $employee['id'] }}">
+@section('layout-content')
 
-        @method('PATCH')
-        @csrf
-
-        <div class="card-body">
-          <div class="form-group">
-              <input type="text" class="form-control" name="fName" value="{{ $employee['fName'] }}" required/>
-          </div>
-          <div class="form-group">
-              <input type="text" class="form-control" name="lName" value="{{ $employee['lName'] }}" required/>
-          </div>
-          <div class="form-group">
-              <input type="text" class="form-control" name="position" value="{{ $employee['position'] }}" required/>
-          </div>
-          <div class="form-group">
-              <input type="text" class="form-control" name="level" value="{{ $employee['level'] }}" required/>
-          </div>
-        </div>
-        <div class="card-footer">
-          <input type="submit" class="btn btn-primary" value="Save" />
-        </div>
-        @if($errors->any())
-        <div class="form-group">
-            @foreach ($errors->all() as $error)
-                <div class="h5 text-danger">{{ $error }}</div>
-            @endforeach
-        </div>
-        @endif
-      </form>
+<div class="mx-auto"> 
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+      <div class="h3">Editing Employee</div>
+      <hr>
     </div>
-  </div>
+  <form method="post" action="/employees/{{ $employee['id'] }}">
+
+    @method('PATCH')
+    @csrf
+
+    <div class="mx-5">
+      <div class="form-group">
+          <input type="text" class="form-control" name="fName" value="{{ $employee['fName'] }}" required/>
+      </div>
+      <div class="form-group">
+          <input type="text" class="form-control" name="lName" value="{{ $employee['lName'] }}" required/>
+      </div>
+      <div class="form-group">
+          <input type="text" class="form-control" name="position" value="{{ $employee['position'] }}" required/>
+      </div>
+      <div class="form-group">
+          <input type="text" class="form-control" name="level" value="{{ $employee['level'] }}" required/>
+      </div>
+    </div>
+    <div class="">
+      <hr>
+      <input type="submit" class="btn btn-primary" value="Save" />
+    </div>
+
+    @include('errors')
+    
+  </form>
 </div>
+
+@endsection

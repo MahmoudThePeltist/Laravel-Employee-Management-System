@@ -1,44 +1,47 @@
 
-@extends('layout')
+@extends('components.layout')
 
-<div class="container">
-  <div class="row h-100">
-    <div class="card mx-auto my-auto col-md-6">
+@section('layout-content')
 
-        <div class="card-header">
-          <div class="h3">Viewing Employee</div>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <div class="h3">Viewing Employee</div>
+  </div>
+
+  <div class="mx-5">
+    <div class="row">
+        <div class="col-md-2 inline-block">
+            First Name:
         </div>
-
-        <div class="card-body">
-            <div class="h4 inline-block">
-                First Name:
-            </div>
-            <div class="inline-block">
-                {{ $employee['fName'] }}
-            </div>
-            <div class="h4 inline-block">
-              Last Name: 
-            </div>
-            <div class="inline-block">
-                {{ $employee['lName'] }}
-            </div>
-            <div class="h4 inline-block">
-                Position:
-            </div>
-            <div class="inline-block">
-                {{ $employee['position'] }}
-            </div>
-            <div class="h4 inline-block">
-                Level:
-            </div>
-            <div class="inline-block">
-                 {{ $employee['level'] }}
-            </div>
+        <div class="col-md-10 h4 inline-block">
+            {{ $employee['fName'] }}
         </div>
-
-        <div class="card-footer">
-          <a type="button" class="btn btn-secondary" href="/">Back</a>
+        <hr>
+        <div class="col-md-2 inline-block">
+          Last Name: 
+        </div>
+        <div class="col-md-10 h4 inline-block">
+            {{ $employee['lName'] }}
+        </div>
+        <hr>
+        <div class="col-md-2 inline-block">
+            Position:
+        </div>
+        <div class="col-md-10 h4 inline-block">
+            {{ $employee['position'] }}
+        </div>
+        <hr>
+        <div class="col-md-2 inline-block">
+            Level:
+        </div>
+        <div class="col-md-10 h4 inline-block">
+              {{ $employee['level'] }}
         </div>
     </div>
+
+    <div class="">
+      <hr>
+      <a type="button" class="btn btn-secondary" href="/">Back</a>
+    </div>
   </div>
-</div>
+
+@endsection

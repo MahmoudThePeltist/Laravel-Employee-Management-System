@@ -11,11 +11,20 @@
 |
 */
 
-Route::get('/', 'DashboardController@dashboard');
+Route::get('/', 'DashboardController@dashboard')->name('Dashboard')->middleware('auth');
 
-Route::resource('employees','EmployeesController');
-Route::resource('projects','ProjectsController');
-Route::resource('tasks','TasksController');
+Route::resource('employees','EmployeesController')->middleware('auth');
 
-Route::get('/login', 'PagesController@login');
-Route::post('/login', 'PagesController@post');
+Route::resource('projects','ProjectsController')->middleware('auth');
+Route::post('/projects/{project}/deassign/{employee}', 'ProjectsController@deassign')->middleware('auth');
+Route::post('/projects/{project}/assign/{employee}', 'ProjectsController@assign')->middleware('auth');
+
+Route::resource('tasks','TasksController')->middleware('auth');
+Route::post('/projects/{project}/tasks','TasksController@store')->middleware('auth');
+
+// Route::get('/login', 'PagesController@login');
+// Route::post('/login', 'PagesController@post');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
