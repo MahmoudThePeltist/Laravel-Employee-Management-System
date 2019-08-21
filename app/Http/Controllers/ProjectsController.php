@@ -16,7 +16,8 @@ class ProjectsController extends Controller
      */
     public function index(Project $project)
     {
-        $projects = $project->all();
+        $projects = $project->where('owner_id', auth()->id())->get();
+
         return view('projects.index', compact('projects'));
     }
 
@@ -42,6 +43,8 @@ class ProjectsController extends Controller
             'name' => ['required','string'],
             'description' => ['required','string']
         ]);
+        
+        $validatedData = $validatedData + ['owner_id' => auth()->id()];
 
         $project->create($validatedData);
 

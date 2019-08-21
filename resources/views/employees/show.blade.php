@@ -15,21 +15,28 @@
         <div class="col-md-10 h4 inline-block">
             {{ $employee['fName'] }}
         </div>
-        <hr>
+        
         <div class="col-md-2 inline-block">
           Last Name: 
         </div>
         <div class="col-md-10 h4 inline-block">
             {{ $employee['lName'] }}
         </div>
-        <hr>
+        
         <div class="col-md-2 inline-block">
             Position:
         </div>
         <div class="col-md-10 h4 inline-block">
             {{ $employee['position'] }}
         </div>
-        <hr>
+
+        <div class="col-md-2 inline-block">
+            Email:
+        </div>
+        <div class="col-md-10 h4 inline-block">
+            {{ $employee['email'] }}
+        </div>
+
         <div class="col-md-2 inline-block">
             Level:
         </div>
@@ -40,7 +47,7 @@
 
     <div class="">
       <hr>
-      <a type="button" class="btn btn-secondary" href="/">Back</a>
+      <a type="button" class="btn btn-secondary" href="/employees">Back</a>
     </div>
   </div>
 

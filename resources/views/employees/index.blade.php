@@ -19,15 +19,54 @@
           <div class="modal-body">
             <div class="form-group">
                 <input type="text" class="form-control" name="fName" placeholder="First Name *" required/>
+                @error('fName')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" name="lName" placeholder="Last Name *" required/>
+                @error('lName')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" name="position" placeholder="Position *" required/>
+                @error('position')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" name="email" placeholder="Email *" required/>
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" name="level" placeholder="Level *" required/>
+                @error('level')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" placeholder="Password *" required/>
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password *" required/>
             </div>
           </div>
           <div class="modal-footer">

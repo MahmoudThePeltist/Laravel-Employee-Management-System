@@ -14,6 +14,7 @@ class EmployeesController extends Controller
     public function index(Employee $employee)
     {
         $employees = $employee->all();
+
         return view('employees.index', compact('employees'));
     }
 
@@ -31,11 +32,13 @@ class EmployeesController extends Controller
     public function store(Employee $employee)
     {
         $validatedData = request()->validate([
-            'fName' => ['required','min:3','max:12','string'],
-            'lName' => ['required','min:3','max:12','string'],
-            'position' => ['required','min:1','max:24','string'],
-            'level' => ['required','min:1','max:1000','integer']
-            ]);
+            'fname' => ['required', 'string', 'max:255'],
+            'lname' => ['required', 'string', 'max:255'],
+            'position' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:employees'],
+            'level' => ['required','integer','max:255'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
 
         $employee->create($validatedData);
 
@@ -65,11 +68,12 @@ class EmployeesController extends Controller
     public function update(Employee $employee)
     {
         $validatedData = request()->validate([
-            'fName' => ['required','min:3','max:12','string'],
-            'lName' => ['required','min:3','max:12','string'],
-            'position' => ['required','min:1','max:24','string'],
-            'level' => ['required','min:1','max:1000','integer']
-            ]);
+            'fname' => ['required', 'string', 'max:255'],
+            'lname' => ['required', 'string', 'max:255'],
+            'position' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            'level' => ['required','integer','max:255'],
+        ]);
             
         $employee->update($validatedData);
 

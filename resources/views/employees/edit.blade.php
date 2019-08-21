@@ -24,11 +24,16 @@
           <input type="text" class="form-control" name="position" value="{{ $employee['position'] }}" required/>
       </div>
       <div class="form-group">
+          <input type="text" class="form-control" name="email" value="{{ $employee['email'] }}" required/>
+      </div>
+      <div class="form-group">
           <input type="text" class="form-control" name="level" value="{{ $employee['level'] }}" required/>
       </div>
     </div>
+
     <div class="">
       <hr>
+      <a type="button" class="btn btn-secondary" href="/employees">Back</a>
       <input type="submit" class="btn btn-primary" value="Save" />
     </div>
 
