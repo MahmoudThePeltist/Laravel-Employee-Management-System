@@ -13,6 +13,11 @@ class Project extends Model
     public function tasks() {
         return $this->hasMany(Task::class, 'project_id');
     }
+
+    public function owner() {
+        return $this->belongsTo(Employee::class, 'owner_id');
+    }
+
     public function employees() {
         return $this->belongsToMany(Employee::class);
     }

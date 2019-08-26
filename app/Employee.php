@@ -38,7 +38,11 @@ class Employee extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
-    public function projects() {
+    public function assigned_projects() {
         return $this->belongsToMany(Project::class);
+    }
+
+    public function owned_projects() {
+        return $this->hasMany(Project::class, 'owner_id');
     }
 }

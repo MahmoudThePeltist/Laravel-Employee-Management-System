@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use App\Employee;
+use App\mail\ProjectCreated;
 
 use Illuminate\Http\Request;
 
@@ -16,7 +17,9 @@ class ProjectsController extends Controller
      */
     public function index(Project $project)
     {
-        $projects = $project->where('owner_id', auth()->id())->get();
+        // $projects = $project->where('owner_id', auth()->id())->get(); The old way of getting the user's projects
+
+        $projects = auth()->user()->owned_projects;
 
         return view('projects.index', compact('projects'));
     }
@@ -46,7 +49,11 @@ class ProjectsController extends Controller
         
         $validatedData = $validatedData + ['owner_id' => auth()->id()];
 
-        $project->create($validatedData);
+        $project = Project::create($validatedData);
+
+        \Mail::to($project->owner->email)->send(
+            new ProjectCreated($project)
+        );
 
         return redirect('/projects');
     }
@@ -118,11 +125,15 @@ class ProjectsController extends Controller
         
         return back();
     }
-    public function assign($id, $employee_id){
-
+    public function assign($id){
+        $validatedData = request()->validate([
+            'employee_id' => ['required']
+        ]);
+        
         $project = Project::find($id);
-        $employee = Employee::find($employee_id);
 
+        $employee = Employee::find($validatedData['employee_id']);
+        
         $project->employees()->attach($employee);
 
         return back();

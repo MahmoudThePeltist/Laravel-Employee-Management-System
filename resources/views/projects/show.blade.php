@@ -29,20 +29,39 @@
           <div class="inline-block">
               @if($project->employees->count())
               <ul class="w-100">
+                <div class="row">
                   @foreach ($project->employees as $employee)
-                  <li class="my-4 pr-4 w-100">{{ $employee->fName }} {{ $employee->lName }}
-                    <form class="form-inline float-right" method="POST" action="{{ $project->id }}/deassign/{{ $employee->id }}">
-                      @csrf
-                      <button type="submit" class="btn btn-outline-dark">
-                        <i class="fas fa-trash"></i>
-                      </button>
-                    </form>
-                  </li>
+                    <div class="col-md-10">
+                      <div>
+                        <i class="fas fa-user-alt"></i> {{ $employee->fName }} {{ $employee->lName }}
+                      </div>               
+                    </div>
+                    <div class="col-md-2">
+                      <form class="my-2 pr-4" method="POST" action="{{ $project->id }}/deassign/{{ $employee->id }}">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-dark">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </form>             
+                    </div>
                   @endforeach
+                  </div>
+                </div>
               </ul>
-              @else
-                  <i>Not assigned.</i>
+              @else 
+                  <i>No one is assigned.</i>
               @endif
+              <form class="my-2 pr-4" method="POST" action="{{ $project->id }}/assign">
+                @csrf
+                <select class="form-control" name="employee_id" REQUIRED>
+                  @foreach ($employees as $employee)
+                  <option value="{{ $employee->id }}">
+                    {{ $employee->fName . ' ' . $employee->lName }}
+                  </option>
+                  @endforeach
+                </select>
+                <button type="submit" class="btn btn-outline-primary mt-2">Add</button>
+              </form>
           </div>
           <hr>
           <div class="h5 inline-block">
@@ -85,7 +104,7 @@
               @else
                   <i>No tasks.</i>
               @endif
-              <form classs="form-group" method="POST" action="{{ $project->id }}/tasks/">
+              <form class="form-group" method="POST" action="{{ $project->id }}/tasks/">
                 @csrf
                 <input type="text" class="form-control" name="description" placeholder="Description">
                 <button type="submit" class="btn btn-outline-primary mt-2">Add</button>
